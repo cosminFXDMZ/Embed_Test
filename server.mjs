@@ -1,7 +1,7 @@
 import express from 'express';
 import fetch from 'node-fetch';
 import cors from 'cors';
-import e from 'express';
+import dotenv from 'dotenv';
 
 const app = express();
 const port = 3000;
@@ -13,11 +13,10 @@ app.use(cors());
 app.use(express.json());
 
 // Endpoint to fetch Auth Token
-app.post('/auth-token', async (req, res) => { 
-  // environment variables
-  const tenantId = "e97f9fc7-2bba-4957-bf26-f340d78414b7";
-  const clientId = "6bdbbc6f-74d4-42ad-b23d-aa3403871290"; 
-  const clientSecret = "2VA8Q~2n6zSi~udNXh_4Fdqm2EP7L27QPleGYb7A"; 
+app.post('/auth-token', async (req, res) => {
+  const tenantId = process.env.TENANT_ID;
+  const clientId = process.env.CLIENT_ID; 
+  const clientSecret = process.env.CLIENT_SECRET; 
 
   const scope = "https://analysis.windows.net/powerbi/api/.default";
   const authUrl = `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`;
